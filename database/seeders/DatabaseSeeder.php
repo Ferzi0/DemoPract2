@@ -2,22 +2,29 @@
 
 namespace Database\Seeders;
 
+use App\Models\Furniture;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Furniture::create(['title' => 'Табурет', 'price' => '500']);
+        Furniture::create(['title' => 'Стул', 'price' => '1500']);
+        Furniture::create(['title' => 'Кресло', 'price' => '3000']);
+        Furniture::create(['title' => 'Диван', 'price' => '10000']);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::create([
+            'firstname' => 'Admin',
+            'middlename' => 'Admin',
+            'lastname' => 'Admin',
+            'email' => 'admin@example.com',
+            'login' => 'admin',
+            'password' => Hash::make('admin2025'),
+            'tel' => '+79999999999',
+            'role' => 'admin',
         ]);
     }
 }

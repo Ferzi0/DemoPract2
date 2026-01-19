@@ -7,6 +7,7 @@ use App\Concerns\ProfileValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Livewire\Attributes\Rule;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,14 +21,35 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            ...$this->profileRules(),
+            'firstname' => ['required', 'string', 'max:255'],
+            'middlename' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'tel' => ['required', 'string', 'max:20'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            'login' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique(User::class),
+            ],
             'password' => $this->passwordRules(),
         ])->validate();
 
         return User::create([
-            'name' => $input['name'],
+            'firstname' => $input['firstname'],
+            'middlename' => $input['middlename'],
+            'lastname' => $input['lastname'],
+            'tel' => $input['tel'],
             'email' => $input['email'],
+            'login' => $input['login'],
             'password' => $input['password'],
+            'role' => 'user',
         ]);
     }
 }
