@@ -1,4 +1,4 @@
-<x-layouts.auth>
+<x-layouts::auth>
     <div class="flex flex-col gap-6">
         <x-auth-header title="Создать аккаунт" description="Введите ваши данные для регистрации" />
 
@@ -103,4 +103,4 @@
             <flux:link :href="route('login')" wire:navigate>Войти</flux:link>
         </div>
     </div>
-</x-layouts.auth>
+</x-layouts::auth>

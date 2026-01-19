@@ -1,4 +1,4 @@
-<x-layouts.auth>
+<x-layouts::auth>
     <div class="flex flex-col gap-6">
         <x-auth-header title="Вход в аккаунт" description="Введите логин и пароль для входа" />
 
@@ -55,4 +55,4 @@
             </div>
         @endif
     </div>
-</x-layouts.auth>
+</x-layouts::auth>
