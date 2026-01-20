@@ -26,5 +26,16 @@ class DatabaseSeeder extends Seeder
             'tel' => '+79999999999',
             'role' => 'admin',
         ]);
+
+        User::create([
+            'firstname' => 'Иван',
+            'middlename' => 'Иванов',
+            'lastname' => 'Иванович',
+            'email' => 'mail@mail.ru',
+            'login' => 'user',
+            'password' => Hash::make('user'),
+            'tel' => '+71111111111',
+            'role' => 'user',
+        ]);
     }
 }

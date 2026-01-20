@@ -4,7 +4,7 @@ use App\Models\Order;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public $address = '';
+    public $count = '';
     public $type = '';
     public $date = '';
     public $time = '';
@@ -13,7 +13,7 @@ new class extends Component {
     public function save()
     {
         $validated = $this->validate([
-            'address' => 'required|string|max:255',
+            'count' => 'required|string|max:255',
             'type' => 'required|in:косметический ремонт,капитальный ремонт,электромонтаж',
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required',
@@ -27,7 +27,7 @@ new class extends Component {
             'time' => $validated['time'],
             'payment' => $validated['payment'],
             'user_id' => auth()->id(),
-            'status_id' => 1, // новая
+            'furniture_id' => 1, // новая
         ]);
 
         $this->reset();

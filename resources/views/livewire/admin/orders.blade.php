@@ -1,22 +1,22 @@
 <?php
 
+use App\Models\Furniture;
 use App\Models\Order;
-use App\Models\Status;
 use Livewire\Volt\Component;
 
 new class extends Component {
     public function with(): array
     {
         return [
-            'orders' => Order::with(['user', 'status'])->latest()->get(),
-            'statuses' => Status::all(),
+            'orders' => Order::with(['user', 'furniture'])->latest()->get(),
+            'furnitures' => Furniture::all(),
         ];
     }
 
-    public function updateStatus($orderId, $statusId)
+    public function updateStatus($orderId, $furnitureId)
     {
         $order = Order::findOrFail($orderId);
-        $order->update(['status_id' => $statusId]);
+        $order->update(['furniture_id' => $furnitureId]);
         
         session()->flash('success', 'Статус заявки обновлен');
     }
@@ -49,11 +49,11 @@ new class extends Component {
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">ФИО</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Телефон</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Адрес</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Количество</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Вид ремонта</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дата и время</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Оплата</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Статус</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Тип мебели</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -71,10 +71,10 @@ new class extends Component {
                                             <td class="px-4 py-4 text-sm">
                                                 <select wire:change="updateStatus({{ $order->id }}, $event.target.value)"
                                                     class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 text-sm">
-                                                    @foreach($statuses as $status)
-                                                        <option value="{{ $status->id }}" 
-                                                            @selected($order->status_id === $status->id)>
-                                                            {{ $status->title }}
+                                                    @foreach($furnitures as $furniture)
+                                                        <option value="{{ $furniture->id }}" 
+                                                            @selected($order->furniture_id === $furniture->id)>
+                                                            {{ $furniture->title }}
                                                         </option>
                                                     @endforeach
                                                 </select>
